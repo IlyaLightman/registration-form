@@ -60,12 +60,13 @@ function isFormValid() {
 }
 
 function updateSubmitButtonState() {
-  submitBtn.disabled = false;
+  submitBtn.disabled = !isFormValid();
   submitBtn.style.opacity = submitBtn.disabled ? '0.5' : '1';
   submitBtn.style.cursor = submitBtn.disabled ? 'not-allowed' : 'pointer';
 }
 
 phoneInput.addEventListener('input', () => {
+  successMessage.textContent = '';
   if (phoneInput.value.length === 0) {
     phoneError.textContent = '';
   } else if (!validatePhone(phoneInput.value)) {
@@ -77,6 +78,7 @@ phoneInput.addEventListener('input', () => {
 });
 
 passwordInput.addEventListener('input', () => {
+  successMessage.textContent = '';
   updateStrengthUI(passwordInput.value);
 
   if (passwordInput.value.length === 0) {
@@ -97,6 +99,7 @@ passwordInput.addEventListener('input', () => {
 });
 
 confirmInput.addEventListener('input', () => {
+  successMessage.textContent = '';
   if (confirmInput.value.length === 0) {
     confirmError.textContent = '';
   } else if (!doPasswordsMatch(passwordInput.value, confirmInput.value)) {
